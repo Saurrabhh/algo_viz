@@ -1,3 +1,7 @@
+import 'package:algo_viz/core/app_config/i_app_config.dart';
+import 'package:algo_viz/core/designs/designs.dart';
+import 'package:algo_viz/core/route_handler/route_handler.dart';
+import 'package:algo_viz/features/splash/presentation/ui/splash_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,32 +14,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Algo Viz',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const Dashboard(),
-    );
-  }
-}
-
-class Dashboard extends StatelessWidget {
-  const Dashboard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'AlgoViz',
-        ),
-      ),
-      body: const Center(
-        child: Text('Welcome to AlgoViz'),
-      ),
+      debugShowCheckedModeBanner: false,
+      title: AppConfig.appName,
+      theme: AppTheme.theme,
+      onGenerateRoute: RouteHandler.generateRoute,
+      home: const SplashPage(),
     );
   }
 }
