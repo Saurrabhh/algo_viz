@@ -20,6 +20,14 @@ class SplashPage extends StatelessWidget {
             const SizedBox(
               height: 100,
             ),
+            // SizedBox(
+            //   height: 300,
+            //   width: 300,
+            //   child: Lottie.asset(
+            //     ImageAssets.splashLottie,
+            //     repeat: false,
+            //   ),
+            // ),
             Lottie.asset(
               ImageAssets.splash,
               repeat: false,

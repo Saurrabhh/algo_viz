@@ -1,6 +1,3 @@
-import 'package:algo_viz/core/app_config/i_app_config.dart';
-import 'package:algo_viz/core/designs/designs.dart';
-import 'package:algo_viz/core/route_handler/route_handler.dart';
 import 'package:algo_viz/features/splash/presentation/ui/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,9 +12,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: AppConfig.appName,
-      theme: AppTheme.theme,
-      onGenerateRoute: RouteHandler.generateRoute,
+      title: 'Algo Viz',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
       home: const SplashPage(),
     );
   }
