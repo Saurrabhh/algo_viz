@@ -1,3 +1,1 @@
-final class StringConstants {
-  // static const verificationId = 'verificationId';
-}
+final class StringConstants {}
