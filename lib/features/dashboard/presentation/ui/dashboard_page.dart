@@ -1,3 +1,4 @@
+import 'package:algo_viz/core/app_config/i_app_config.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
@@ -10,12 +11,12 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          'AlgoViz',
+        title: Text(
+          AppConfig.appName,
         ),
       ),
-      body: const Center(
-        child: Text('Welcome to AlgoViz'),
+      body: Center(
+        child: Text('Welcome to ${AppConfig.appName}'),
       ),
     );
   }
