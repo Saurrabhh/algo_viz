@@ -1,7 +1,7 @@
 import 'package:algo_viz/core/app_config/i_app_config.dart';
 import 'package:algo_viz/core/designs/designs.dart';
 import 'package:algo_viz/core/route_handler/route_handler.dart';
-import 'package:algo_viz/features/splash/presentation/ui/splash_page.dart';
+import 'package:algo_viz/core/route_handler/route_observer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +18,10 @@ class MyApp extends StatelessWidget {
       title: AppConfig.appName,
       theme: AppTheme.theme,
       onGenerateRoute: RouteHandler.generateRoute,
-      home: const SplashPage(),
+      initialRoute: RouteId.splash.name,
+      navigatorObservers: [
+        CustomNavigatorObserver(),
+      ],
     );
   }
 }

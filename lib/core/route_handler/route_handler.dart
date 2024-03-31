@@ -1,5 +1,7 @@
 import 'package:algo_viz/core/route_handler/route_id.dart';
 import 'package:algo_viz/features/dashboard/presentation/ui/dashboard_page.dart';
+import 'package:algo_viz/features/pathfinding/presentation/ui/pathfinding_page.dart';
+import 'package:algo_viz/features/sorting/presentation/ui/sorting_page.dart';
 import 'package:algo_viz/features/splash/presentation/ui/splash_page.dart';
 import 'package:algo_viz/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +30,9 @@ class RouteHandler {
       settings: settings,
       builder: (_) => switch (routeId) {
         RouteId.splash => const SplashPage(),
-        RouteId.dashboard => const Dashboard(),
+        RouteId.dashboard => Dashboard(),
+        RouteId.sorting => SortingPage(),
+        RouteId.pathfinding => PathfindingPage(),
       },
     );
   }
