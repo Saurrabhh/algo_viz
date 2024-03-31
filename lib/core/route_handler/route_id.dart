@@ -1,4 +1,1 @@
-enum RouteId {
-  splash,
-  dashboard,
-}
+enum RouteId { splash, dashboard, sorting, pathfinding }
