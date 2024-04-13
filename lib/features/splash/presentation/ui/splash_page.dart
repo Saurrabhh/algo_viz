@@ -13,7 +13,7 @@ class SplashPage extends StatelessWidget {
     return FlutterSplashScreen(
       useImmersiveMode: true,
       duration: const Duration(milliseconds: 5000),
-      nextScreen: Dashboard(),
+      nextScreen: const Dashboard(),
       backgroundColor: AppColors.whiteColor,
       splashScreenBody: Center(
         child: Column(

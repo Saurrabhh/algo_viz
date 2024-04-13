@@ -6,7 +6,7 @@ class CustomCardModel {
   final VoidCallback onTap;
   final Color color;
 
-  CustomCardModel({
+  const CustomCardModel({
     required this.imagePath,
     required this.text,
     required this.onTap,

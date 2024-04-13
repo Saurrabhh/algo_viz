@@ -4,71 +4,71 @@ import 'package:algo_viz/core/model/custom_card_model.dart';
 import 'package:algo_viz/core/route_handler/route_handler.dart';
 import 'package:flutter/material.dart';
 
+final List<CustomCardModel> _sortList = [
+  CustomCardModel(
+    imagePath: 'assets/icons/arrow_down_right.png',
+    text: 'Selection Sort',
+    onTap: () {
+      print('selection');
+    },
+    color: AppColors.whiteColor,
+  ),
+  CustomCardModel(
+    imagePath: 'assets/icons/arrow_down_right.png',
+    text: 'Insertion Sort',
+    onTap: () {
+      print('Insertion');
+    },
+    color: AppColors.blueColor,
+  ),
+  CustomCardModel(
+    imagePath: 'assets/icons/arrow_down_right.png',
+    text: 'Quick Sort',
+    onTap: () {
+      print('Quick');
+    },
+    color: AppColors.yellowColor,
+  ),
+  CustomCardModel(
+    imagePath: 'assets/icons/arrow_down_right.png',
+    text: 'Merge Sort',
+    onTap: () {
+      print('Merge');
+    },
+    color: AppColors.blueColor,
+  ),
+];
+final List<CustomCardModel> _pathfindingList = [
+  CustomCardModel(
+    imagePath: 'assets/icons/arrow_down_right.png',
+    text: 'BFS',
+    onTap: () {
+      print('BFS');
+    },
+    color: AppColors.whiteColor,
+  ),
+  CustomCardModel(
+    imagePath: 'assets/icons/arrow_down_right.png',
+    text: 'DFS',
+    onTap: () {
+      print('DFS');
+    },
+    color: AppColors.blueColor,
+  ),
+  CustomCardModel(
+    imagePath: 'assets/icons/arrow_down_right.png',
+    text: 'Dijkstra',
+    onTap: () {
+      print('Dijkstra');
+    },
+    color: AppColors.yellowColor,
+  ),
+];
+
 class Dashboard extends StatelessWidget {
-  Dashboard({
+  const Dashboard({
     super.key,
   });
-
-  final List<CustomCardModel> sortList = [
-    CustomCardModel(
-      imagePath: 'assets/icons/arrow_down_right.png',
-      text: 'Selection Sort',
-      onTap: () {
-        print('selection');
-      },
-      color: AppColors.whiteColor,
-    ),
-    CustomCardModel(
-      imagePath: 'assets/icons/arrow_down_right.png',
-      text: 'Insertion Sort',
-      onTap: () {
-        print('Insertion');
-      },
-      color: AppColors.blueColor,
-    ),
-    CustomCardModel(
-      imagePath: 'assets/icons/arrow_down_right.png',
-      text: 'Quick Sort',
-      onTap: () {
-        print('Quick');
-      },
-      color: AppColors.yellowColor,
-    ),
-    CustomCardModel(
-      imagePath: 'assets/icons/arrow_down_right.png',
-      text: 'Merge Sort',
-      onTap: () {
-        print('Merge');
-      },
-      color: AppColors.blueColor,
-    ),
-  ];
-  final List<CustomCardModel> pathfindingList = [
-    CustomCardModel(
-      imagePath: 'assets/icons/arrow_down_right.png',
-      text: 'BFS',
-      onTap: () {
-        print('BFS');
-      },
-      color: AppColors.whiteColor,
-    ),
-    CustomCardModel(
-      imagePath: 'assets/icons/arrow_down_right.png',
-      text: 'DFS',
-      onTap: () {
-        print('DFS');
-      },
-      color: AppColors.blueColor,
-    ),
-    CustomCardModel(
-      imagePath: 'assets/icons/arrow_down_right.png',
-      text: 'Dijkstra',
-      onTap: () {
-        print('Dijkstra');
-      },
-      color: AppColors.yellowColor,
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +124,7 @@ class Dashboard extends StatelessWidget {
                 height: 250,
                 child: ListView.separated(
                   shrinkWrap: true,
-                  itemCount: sortList.length,
+                  itemCount: _sortList.length,
                   padding: const EdgeInsets.all(8),
                   scrollDirection: Axis.horizontal,
                   separatorBuilder: (BuildContext context, int index) {
@@ -134,9 +134,9 @@ class Dashboard extends StatelessWidget {
                   },
                   itemBuilder: (BuildContext context, int index) {
                     return CustomCard(
-                      imagePath: sortList[index].imagePath,
-                      text: sortList[index].text,
-                      onTap: sortList[index].onTap,
+                      imagePath: _sortList[index].imagePath,
+                      text: _sortList[index].text,
+                      onTap: _sortList[index].onTap,
                       color: index % 3 == 0
                           ? AppColors.whiteColor
                           : index % 3 == 1
@@ -174,7 +174,7 @@ class Dashboard extends StatelessWidget {
                 height: 250,
                 child: ListView.separated(
                   shrinkWrap: true,
-                  itemCount: pathfindingList.length,
+                  itemCount: _pathfindingList.length,
                   padding: const EdgeInsets.all(8),
                   scrollDirection: Axis.horizontal,
                   separatorBuilder: (BuildContext context, int index) {
@@ -184,9 +184,9 @@ class Dashboard extends StatelessWidget {
                   },
                   itemBuilder: (BuildContext context, int index) {
                     return CustomCard(
-                      imagePath: pathfindingList[index].imagePath,
-                      text: pathfindingList[index].text,
-                      onTap: pathfindingList[index].onTap,
+                      imagePath: _pathfindingList[index].imagePath,
+                      text: _pathfindingList[index].text,
+                      onTap: _pathfindingList[index].onTap,
                       color: index % 3 == 0
                           ? AppColors.whiteColor
                           : index % 3 == 1
