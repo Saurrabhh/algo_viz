@@ -30,9 +30,9 @@ class RouteHandler {
       settings: settings,
       builder: (_) => switch (routeId) {
         RouteId.splash => const SplashPage(),
-        RouteId.dashboard => Dashboard(),
-        RouteId.sorting => SortingPage(),
-        RouteId.pathfinding => PathfindingPage(),
+        RouteId.dashboard => const Dashboard(),
+        RouteId.sorting => const SortingPage(),
+        RouteId.pathfinding => const PathfindingPage(),
       },
     );
   }

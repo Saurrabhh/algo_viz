@@ -1,4 +1,5 @@
 import 'package:algo_viz/constants/constants.dart';
+import 'package:algo_viz/core/color/app_colors.dart';
 import 'package:algo_viz/features/dashboard/presentation/ui/dashboard_page.dart';
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,8 @@ class SplashPage extends StatelessWidget {
     return FlutterSplashScreen(
       useImmersiveMode: true,
       duration: const Duration(milliseconds: 5000),
-      nextScreen: Dashboard(),
-      backgroundColor: Colors.white,
+      nextScreen: const Dashboard(),
+      backgroundColor: AppColors.whiteColor,
       splashScreenBody: Center(
         child: Column(
           children: [
@@ -29,13 +30,16 @@ class SplashPage extends StatelessWidget {
             ),
             RichText(
               text: const TextSpan(
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: AppColors.blackColor, fontSize: 20),
                 children: [
                   TextSpan(
                     text: 'Algo ',
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: AppColors.blackColor),
                   ),
-                  TextSpan(text: 'Viz', style: TextStyle(color: Colors.blue)),
+                  TextSpan(
+                    text: 'Viz',
+                    style: TextStyle(color: AppColors.blueColor),
+                  ),
                 ],
               ),
             ),

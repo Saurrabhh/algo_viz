@@ -1,35 +1,37 @@
+import 'package:algo_viz/core/color/app_colors.dart';
 import 'package:algo_viz/core/designs/tiles/custom_card.dart';
 import 'package:algo_viz/core/model/custom_card_model.dart';
 import 'package:flutter/material.dart';
 
+final List<CustomCardModel> _pathfindingList = [
+  CustomCardModel(
+    imagePath: 'assets/icons/arrow_down_right.png',
+    text: 'BFS',
+    onTap: () {
+      print('BFS');
+    },
+    color: AppColors.whiteColor,
+  ),
+  CustomCardModel(
+    imagePath: 'assets/icons/arrow_down_right.png',
+    text: 'DFS',
+    onTap: () {
+      print('DFS');
+    },
+    color: AppColors.blueColor,
+  ),
+  CustomCardModel(
+    imagePath: 'assets/icons/arrow_down_right.png',
+    text: 'Dijkstra',
+    onTap: () {
+      print('Dijkstra');
+    },
+    color: AppColors.yellowColor,
+  ),
+];
+
 class PathfindingPage extends StatelessWidget {
-  PathfindingPage({super.key});
-  final List<CustomCardModel> pathfindingList = [
-    CustomCardModel(
-      imagePath: 'assets/icons/arrow_down_right.png',
-      text: 'BFS',
-      onTap: () {
-        print('BFS');
-      },
-      color: Colors.white,
-    ),
-    CustomCardModel(
-      imagePath: 'assets/icons/arrow_down_right.png',
-      text: 'DFS',
-      onTap: () {
-        print('DFS');
-      },
-      color: Colors.blue,
-    ),
-    CustomCardModel(
-      imagePath: 'assets/icons/arrow_down_right.png',
-      text: 'Dijkstra',
-      onTap: () {
-        print('Dijkstra');
-      },
-      color: Colors.yellow,
-    ),
-  ];
+  const PathfindingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +40,16 @@ class PathfindingPage extends StatelessWidget {
         centerTitle: true,
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(color: Colors.black, fontSize: 20),
+            style: TextStyle(color: AppColors.blackColor, fontSize: 20),
             children: [
               TextSpan(
                 text: 'Pathfinding ',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: AppColors.blackColor),
               ),
               TextSpan(
-                  text: 'Algorithms', style: TextStyle(color: Colors.blue)),
+                text: 'Algorithms',
+                style: TextStyle(color: AppColors.blueColor),
+              ),
             ],
           ),
         ),
@@ -62,13 +66,17 @@ class PathfindingPage extends StatelessWidget {
               childAspectRatio: 3 / 4,
             ),
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: pathfindingList.length,
+            itemCount: _pathfindingList.length,
             itemBuilder: (context, index) {
               return CustomCard(
-                imagePath: pathfindingList[index].imagePath,
-                text: pathfindingList[index].text,
-                onTap: pathfindingList[index].onTap,
-                color: index.isEven ? Colors.white : Colors.blueGrey,
+                imagePath: _pathfindingList[index].imagePath,
+                text: _pathfindingList[index].text,
+                onTap: _pathfindingList[index].onTap,
+                color: index % 3 == 0
+                    ? AppColors.whiteColor
+                    : index % 3 == 1
+                        ? AppColors.blueColor
+                        : AppColors.yellowColor,
               );
             },
           ),
