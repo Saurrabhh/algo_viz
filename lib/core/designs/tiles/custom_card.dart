@@ -22,6 +22,7 @@ class CustomCard extends StatelessWidget {
         color: color,
         elevation: 4,
         shape: RoundedRectangleBorder(
+          side: const BorderSide(width: 2),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(

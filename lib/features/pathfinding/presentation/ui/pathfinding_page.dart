@@ -1,9 +1,11 @@
+import 'package:algo_viz/core/color/app_colors.dart';
 import 'package:algo_viz/core/designs/tiles/custom_card.dart';
 import 'package:algo_viz/core/model/custom_card_model.dart';
 import 'package:flutter/material.dart';
 
 class PathfindingPage extends StatelessWidget {
   PathfindingPage({super.key});
+
   final List<CustomCardModel> pathfindingList = [
     CustomCardModel(
       imagePath: 'assets/icons/arrow_down_right.png',
@@ -11,7 +13,7 @@ class PathfindingPage extends StatelessWidget {
       onTap: () {
         print('BFS');
       },
-      color: Colors.white,
+      color: AppColors.whiteColor,
     ),
     CustomCardModel(
       imagePath: 'assets/icons/arrow_down_right.png',
@@ -19,7 +21,7 @@ class PathfindingPage extends StatelessWidget {
       onTap: () {
         print('DFS');
       },
-      color: Colors.blue,
+      color: AppColors.blueColor,
     ),
     CustomCardModel(
       imagePath: 'assets/icons/arrow_down_right.png',
@@ -27,7 +29,7 @@ class PathfindingPage extends StatelessWidget {
       onTap: () {
         print('Dijkstra');
       },
-      color: Colors.yellow,
+      color: AppColors.yellowColor,
     ),
   ];
 
@@ -38,14 +40,16 @@ class PathfindingPage extends StatelessWidget {
         centerTitle: true,
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(color: Colors.black, fontSize: 20),
+            style: TextStyle(color: AppColors.blackColor, fontSize: 20),
             children: [
               TextSpan(
                 text: 'Pathfinding ',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: AppColors.blackColor),
               ),
               TextSpan(
-                  text: 'Algorithms', style: TextStyle(color: Colors.blue)),
+                text: 'Algorithms',
+                style: TextStyle(color: AppColors.blueColor),
+              ),
             ],
           ),
         ),
@@ -68,7 +72,11 @@ class PathfindingPage extends StatelessWidget {
                 imagePath: pathfindingList[index].imagePath,
                 text: pathfindingList[index].text,
                 onTap: pathfindingList[index].onTap,
-                color: index.isEven ? Colors.white : Colors.blueGrey,
+                color: index % 3 == 0
+                    ? AppColors.whiteColor
+                    : index % 3 == 1
+                        ? AppColors.blueColor
+                        : AppColors.yellowColor,
               );
             },
           ),

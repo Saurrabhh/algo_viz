@@ -1,3 +1,4 @@
+import 'package:algo_viz/core/color/app_colors.dart';
 import 'package:algo_viz/core/designs/tiles/custom_card.dart';
 import 'package:algo_viz/core/model/custom_card_model.dart';
 import 'package:algo_viz/core/route_handler/route_handler.dart';
@@ -15,7 +16,7 @@ class Dashboard extends StatelessWidget {
       onTap: () {
         print('selection');
       },
-      color: Colors.white,
+      color: AppColors.whiteColor,
     ),
     CustomCardModel(
       imagePath: 'assets/icons/arrow_down_right.png',
@@ -23,7 +24,7 @@ class Dashboard extends StatelessWidget {
       onTap: () {
         print('Insertion');
       },
-      color: Colors.blue,
+      color: AppColors.blueColor,
     ),
     CustomCardModel(
       imagePath: 'assets/icons/arrow_down_right.png',
@@ -31,7 +32,7 @@ class Dashboard extends StatelessWidget {
       onTap: () {
         print('Quick');
       },
-      color: Colors.yellow,
+      color: AppColors.yellowColor,
     ),
     CustomCardModel(
       imagePath: 'assets/icons/arrow_down_right.png',
@@ -39,7 +40,7 @@ class Dashboard extends StatelessWidget {
       onTap: () {
         print('Merge');
       },
-      color: Colors.blueGrey,
+      color: AppColors.blueColor,
     ),
   ];
   final List<CustomCardModel> pathfindingList = [
@@ -49,7 +50,7 @@ class Dashboard extends StatelessWidget {
       onTap: () {
         print('BFS');
       },
-      color: Colors.white,
+      color: AppColors.whiteColor,
     ),
     CustomCardModel(
       imagePath: 'assets/icons/arrow_down_right.png',
@@ -57,7 +58,7 @@ class Dashboard extends StatelessWidget {
       onTap: () {
         print('DFS');
       },
-      color: Colors.blue,
+      color: AppColors.blueColor,
     ),
     CustomCardModel(
       imagePath: 'assets/icons/arrow_down_right.png',
@@ -65,9 +66,10 @@ class Dashboard extends StatelessWidget {
       onTap: () {
         print('Dijkstra');
       },
-      color: Colors.yellow,
+      color: AppColors.yellowColor,
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,13 +77,16 @@ class Dashboard extends StatelessWidget {
         centerTitle: true,
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(color: Colors.black, fontSize: 20),
+            style: TextStyle(color: AppColors.blackColor, fontSize: 20),
             children: [
               TextSpan(
                 text: 'Algo',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: AppColors.blackColor),
               ),
-              TextSpan(text: 'Viz', style: TextStyle(color: Colors.blue)),
+              TextSpan(
+                text: 'Viz',
+                style: TextStyle(color: AppColors.blueColor),
+              ),
             ],
           ),
         ),
@@ -106,7 +111,7 @@ class Dashboard extends StatelessWidget {
                   child: Text(
                     'View All',
                     style: TextStyle(
-                      color: Colors.blue.withOpacity(0.9),
+                      color: AppColors.blueColor.withOpacity(0.9),
                       fontSize: 12,
                     ),
                   ),
@@ -132,7 +137,11 @@ class Dashboard extends StatelessWidget {
                       imagePath: sortList[index].imagePath,
                       text: sortList[index].text,
                       onTap: sortList[index].onTap,
-                      color: sortList[index].color,
+                      color: index % 3 == 0
+                          ? AppColors.whiteColor
+                          : index % 3 == 1
+                              ? AppColors.blueColor
+                              : AppColors.yellowColor,
                     );
                   },
                 ),
@@ -152,7 +161,7 @@ class Dashboard extends StatelessWidget {
                   child: Text(
                     'View All',
                     style: TextStyle(
-                      color: Colors.blue.withOpacity(0.9),
+                      color: AppColors.blueColor.withOpacity(0.9),
                       fontSize: 12,
                     ),
                   ),
@@ -178,7 +187,11 @@ class Dashboard extends StatelessWidget {
                       imagePath: pathfindingList[index].imagePath,
                       text: pathfindingList[index].text,
                       onTap: pathfindingList[index].onTap,
-                      color: index.isEven ? Colors.white : Colors.blueGrey,
+                      color: index % 3 == 0
+                          ? AppColors.whiteColor
+                          : index % 3 == 1
+                              ? AppColors.blueColor
+                              : AppColors.yellowColor,
                     );
                   },
                 ),
