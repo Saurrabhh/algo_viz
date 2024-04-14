@@ -1,25 +1,23 @@
+import 'package:algo_viz/core/route_handler/route_handler.dart';
+import 'package:algo_viz/utils/typedefs/typedefs.dart';
 import 'package:flutter/material.dart';
 
-class CustomCard extends StatelessWidget {
-  final String imagePath;
-  final String text;
-  final VoidCallback onTap;
-  final Color color;
+class AlgorithmCard extends StatelessWidget {
+  final AlgorithmCardConfig algorithmCardConfig;
+  final Color backgroundColor;
 
-  const CustomCard({
+  const AlgorithmCard({
     super.key,
-    required this.imagePath,
-    required this.text,
-    required this.onTap,
-    required this.color,
+    required this.algorithmCardConfig,
+    required this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => RouteHandler.push(context, algorithmCardConfig.routeId),
       child: Card(
-        color: color,
+        color: backgroundColor,
         elevation: 4,
         shape: RoundedRectangleBorder(
           side: const BorderSide(width: 2),
@@ -31,14 +29,14 @@ class CustomCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                imagePath,
+                algorithmCardConfig.imagePath,
                 height: 100,
                 width: 100,
                 fit: BoxFit.cover,
               ),
               const SizedBox(height: 8),
               Text(
-                text,
+                algorithmCardConfig.algorithmName,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
