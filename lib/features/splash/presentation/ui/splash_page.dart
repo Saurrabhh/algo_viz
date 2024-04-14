@@ -1,5 +1,5 @@
 import 'package:algo_viz/constants/constants.dart';
-import 'package:algo_viz/core/color/app_colors.dart';
+import 'package:algo_viz/core/designs/designs.dart';
 import 'package:algo_viz/features/dashboard/presentation/ui/dashboard_page.dart';
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class SplashPage extends StatelessWidget {
     return FlutterSplashScreen(
       useImmersiveMode: true,
       duration: const Duration(milliseconds: 5000),
-      nextScreen: const Dashboard(),
+      nextScreen: const DashboardPage(),
       backgroundColor: AppColors.whiteColor,
       splashScreenBody: Center(
         child: Column(

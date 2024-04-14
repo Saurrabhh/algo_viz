@@ -1,34 +1,7 @@
-import 'package:algo_viz/core/color/app_colors.dart';
-import 'package:algo_viz/core/designs/tiles/custom_card.dart';
-import 'package:algo_viz/core/model/custom_card_model.dart';
+import 'package:algo_viz/constants/algorithm_card_configs/algorithm_card_configs.dart';
+import 'package:algo_viz/core/designs/designs.dart';
+import 'package:algo_viz/utils/color_utils/color_utils.dart';
 import 'package:flutter/material.dart';
-
-final List<CustomCardModel> _pathfindingList = [
-  CustomCardModel(
-    imagePath: 'assets/icons/arrow_down_right.png',
-    text: 'BFS',
-    onTap: () {
-      print('BFS');
-    },
-    color: AppColors.whiteColor,
-  ),
-  CustomCardModel(
-    imagePath: 'assets/icons/arrow_down_right.png',
-    text: 'DFS',
-    onTap: () {
-      print('DFS');
-    },
-    color: AppColors.blueColor,
-  ),
-  CustomCardModel(
-    imagePath: 'assets/icons/arrow_down_right.png',
-    text: 'Dijkstra',
-    onTap: () {
-      print('Dijkstra');
-    },
-    color: AppColors.yellowColor,
-  ),
-];
 
 class PathfindingPage extends StatelessWidget {
   const PathfindingPage({super.key});
@@ -66,17 +39,12 @@ class PathfindingPage extends StatelessWidget {
               childAspectRatio: 3 / 4,
             ),
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: _pathfindingList.length,
+            itemCount: AlgorithmCardConfigs.pathFindingAlgorithmsList.length,
             itemBuilder: (context, index) {
-              return CustomCard(
-                imagePath: _pathfindingList[index].imagePath,
-                text: _pathfindingList[index].text,
-                onTap: _pathfindingList[index].onTap,
-                color: index % 3 == 0
-                    ? AppColors.whiteColor
-                    : index % 3 == 1
-                        ? AppColors.blueColor
-                        : AppColors.yellowColor,
+              return AlgorithmCard(
+                algorithmCardConfig:
+                    AlgorithmCardConfigs.pathFindingAlgorithmsList[index],
+                backgroundColor: getColorFromIndex(index),
               );
             },
           ),
