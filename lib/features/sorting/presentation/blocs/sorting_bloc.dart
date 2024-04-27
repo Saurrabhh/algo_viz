@@ -5,7 +5,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 part 'sorting_bloc.freezed.dart';
+
 part 'sorting_event.dart';
+
 part 'sorting_state.dart';
 
 @injectable
