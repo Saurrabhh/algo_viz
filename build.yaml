@@ -1,0 +1,18 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        options:
+          format: false
+          map: false
+          when:
+            when: false
+            maybe_when: false
+            when_or_null: false
+        generate_for:
+          - lib/features/sorting/presentation/blocs/sorting_bloc.dart
+
+      injectable_generator:injectable_builder:
+        generate_for:
+          - lib/di/injection.dart
+          - lib/features/sorting/presentation/blocs/sorting_bloc.dart
