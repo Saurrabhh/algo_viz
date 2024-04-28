@@ -24,14 +24,14 @@ class AlgorithmCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
                 algorithmCardConfig.imagePath,
-                height: 100,
-                width: 100,
+                height: 110,
+                width: 105,
                 fit: BoxFit.cover,
               ),
               const SizedBox(height: 8),

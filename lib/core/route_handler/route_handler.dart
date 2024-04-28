@@ -4,6 +4,9 @@ import 'package:algo_viz/features/pathfinding/presentation/ui/bfs/bfs_page.dart'
 import 'package:algo_viz/features/pathfinding/presentation/ui/dfs/dfs_page.dart';
 import 'package:algo_viz/features/pathfinding/presentation/ui/dijkstra/dijkstra_page.dart';
 import 'package:algo_viz/features/pathfinding/presentation/ui/pathfinding_page.dart';
+import 'package:algo_viz/features/searching/presentation/ui/binary_search/binary_search_page.dart';
+import 'package:algo_viz/features/searching/presentation/ui/linear_search/linear_search_page.dart';
+import 'package:algo_viz/features/searching/presentation/ui/searching_page.dart';
 import 'package:algo_viz/features/sorting/presentation/ui/insertion_sort/insertion_sort_page.dart';
 import 'package:algo_viz/features/sorting/presentation/ui/merge_sort/merge_sort_page.dart';
 import 'package:algo_viz/features/sorting/presentation/ui/quick_sort/quick_sort_page.dart';
@@ -45,6 +48,9 @@ class RouteHandler {
         RouteId.bfs => const BFSPage(),
         RouteId.dfs => const DFSPage(),
         RouteId.dijkstra => const DijkstraPage(),
+        RouteId.linearSearch => const LinearSearchPage(),
+        RouteId.binarySearch => const BinarySearchPage(),
+        RouteId.searching => const SearchingPage(),
       },
     );
   }

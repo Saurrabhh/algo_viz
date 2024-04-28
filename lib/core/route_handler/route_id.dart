@@ -10,4 +10,7 @@ enum RouteId {
   bfs,
   dfs,
   dijkstra,
+  linearSearch,
+  binarySearch,
+  searching,
 }

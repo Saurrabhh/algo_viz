@@ -5,26 +5,39 @@ import 'package:algo_viz/utils/typedefs/typedefs.dart';
 final class AlgorithmCardConfigs {
   const AlgorithmCardConfigs._();
 
+  static const searchingAlgorithmsList = <AlgorithmCardConfig>[
+    (
+      algorithmName: 'Linear Search',
+      routeId: RouteId.linearSearch,
+      imagePath: ImageAssets.linear,
+    ),
+    (
+      algorithmName: 'Binary Search',
+      routeId: RouteId.binarySearch,
+      imagePath: ImageAssets.binary,
+    ),
+  ];
+
   static const sortingAlgorithmsList = <AlgorithmCardConfig>[
     (
       algorithmName: 'Selection Sort',
       routeId: RouteId.selectionSort,
-      imagePath: ImageAssets.arrowDownRight,
+      imagePath: ImageAssets.selection,
     ),
     (
       algorithmName: 'Insertion Sort',
       routeId: RouteId.insertionSort,
-      imagePath: ImageAssets.arrowDownRight,
+      imagePath: ImageAssets.insertion,
     ),
     (
       algorithmName: 'Quick Sort',
       routeId: RouteId.quickSort,
-      imagePath: ImageAssets.arrowDownRight,
+      imagePath: ImageAssets.quick,
     ),
     (
       algorithmName: 'Merge Sort',
       routeId: RouteId.mergeSort,
-      imagePath: ImageAssets.arrowDownRight,
+      imagePath: ImageAssets.merge,
     ),
   ];
 
@@ -32,17 +45,17 @@ final class AlgorithmCardConfigs {
     (
       algorithmName: 'BFS',
       routeId: RouteId.bfs,
-      imagePath: ImageAssets.arrowDownRight,
+      imagePath: ImageAssets.bfs,
     ),
     (
       algorithmName: 'DFS',
       routeId: RouteId.dfs,
-      imagePath: ImageAssets.arrowDownRight,
+      imagePath: ImageAssets.dfs,
     ),
     (
       algorithmName: 'Dijkstra',
       routeId: RouteId.dijkstra,
-      imagePath: ImageAssets.arrowDownRight,
+      imagePath: ImageAssets.dijkstra,
     ),
   ];
 }
