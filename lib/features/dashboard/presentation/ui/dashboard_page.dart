@@ -42,6 +42,15 @@ class DashboardPage extends StatelessWidget {
                 height: 20,
               ),
               _AlgorithmSection(
+                title: 'Searching Algorithms',
+                viewAllRouteId: RouteId.searching,
+                algorithmCardConfigs:
+                    AlgorithmCardConfigs.searchingAlgorithmsList,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              _AlgorithmSection(
                 title: 'Sorting Algorithms',
                 viewAllRouteId: RouteId.sorting,
                 algorithmCardConfigs:
