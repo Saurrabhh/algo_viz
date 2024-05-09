@@ -2,9 +2,19 @@ part of 'sorting_bloc.dart';
 
 @freezed
 sealed class SortingState extends BaseState with _$SortingState {
+  const SortingState._();
+
   const factory SortingState.initial({
     required SortingStateStore store,
   }) = Initial;
+
+  const factory SortingState.scannedIndex({
+    required SortingStateStore store,
+  }) = ScannedIndex;
+
+  const factory SortingState.swappedIndex({
+    required SortingStateStore store,
+  }) = SwappedIndex;
 
   const factory SortingState.changeLoaderState({
     required SortingStateStore store,
@@ -38,6 +48,10 @@ sealed class SortingState extends BaseState with _$SortingState {
 @freezed
 class SortingStateStore with _$SortingStateStore {
   const factory SortingStateStore({
+    int? scannedIndex1,
+    int? scannedIndex2,
+    @Default([]) List<int> array,
+    @Default([]) List<int> sortedArray,
     @Default(false) bool loading,
   }) = _SortingStateStore;
 }

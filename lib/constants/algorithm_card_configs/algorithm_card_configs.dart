@@ -39,6 +39,11 @@ final class AlgorithmCardConfigs {
       routeId: RouteId.mergeSort,
       imagePath: ImageAssets.merge,
     ),
+    (
+      algorithmName: 'Bubble Sort',
+      routeId: RouteId.bubbleSort,
+      imagePath: ImageAssets.arrowDownRight,
+    ),
   ];
 
   static const pathFindingAlgorithmsList = <AlgorithmCardConfig>[

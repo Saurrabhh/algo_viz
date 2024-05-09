@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 Color getColorFromIndex(int index) {
   return switch (index % 3) {
-    0 => AppColors.whiteColor,
-    1 => AppColors.blueColor,
-    _ => AppColors.yellowColor,
+    0 => AppColors.white,
+    1 => AppColors.blue,
+    _ => AppColors.yellow,
   };
 }

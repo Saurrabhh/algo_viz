@@ -7,6 +7,7 @@ import 'package:algo_viz/features/pathfinding/presentation/ui/pathfinding_page.d
 import 'package:algo_viz/features/searching/presentation/ui/binary_search/binary_search_page.dart';
 import 'package:algo_viz/features/searching/presentation/ui/linear_search/linear_search_page.dart';
 import 'package:algo_viz/features/searching/presentation/ui/searching_page.dart';
+import 'package:algo_viz/features/sorting/presentation/ui/bubble_sort/bubble_sort_page.dart';
 import 'package:algo_viz/features/sorting/presentation/ui/insertion_sort/insertion_sort_page.dart';
 import 'package:algo_viz/features/sorting/presentation/ui/merge_sort/merge_sort_page.dart';
 import 'package:algo_viz/features/sorting/presentation/ui/quick_sort/quick_sort_page.dart';
@@ -45,6 +46,7 @@ class RouteHandler {
         RouteId.insertionSort => const InsertionSortPage(),
         RouteId.quickSort => const QuickSortPage(),
         RouteId.mergeSort => const MergeSortPage(),
+        RouteId.bubbleSort => const BubbleSortPage(),
         RouteId.bfs => const BFSPage(),
         RouteId.dfs => const DFSPage(),
         RouteId.dijkstra => const DijkstraPage(),

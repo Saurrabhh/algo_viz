@@ -15,15 +15,15 @@ class SearchingPage extends StatelessWidget {
         centerTitle: true,
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(color: AppColors.blackColor, fontSize: 20),
+            style: TextStyle(color: AppColors.black, fontSize: 20),
             children: [
               TextSpan(
                 text: 'Searching ',
-                style: TextStyle(color: AppColors.blackColor),
+                style: TextStyle(color: AppColors.black),
               ),
               TextSpan(
                 text: 'Algorithms',
-                style: TextStyle(color: AppColors.blueColor),
+                style: TextStyle(color: AppColors.blue),
               ),
             ],
           ),

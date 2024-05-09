@@ -7,6 +7,7 @@ enum RouteId {
   insertionSort,
   quickSort,
   mergeSort,
+  bubbleSort,
   bfs,
   dfs,
   dijkstra,
