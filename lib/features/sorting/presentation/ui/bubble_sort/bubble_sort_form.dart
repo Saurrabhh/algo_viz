@@ -5,63 +5,112 @@ class _BubbleSortForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    BlocBuilder<SortingBloc, SortingState>(
-                      builder: (BuildContext context, state) {
-                        final array = state.store.sortedArray;
-
-                        return Row(
-                          children: [
-                            for (int i = 0; i < array.length; i++)
-                              Expanded(
-                                child: Container(
-                                  height: 40,
-                                  margin: const EdgeInsets.all(1),
-                                  decoration: BoxDecoration(
-                                    color: i == state.store.scannedIndex1 ||
-                                            i == state.store.scannedIndex2
-                                        ? AppColors.blue
-                                        : AppColors.transparent,
-                                    border: Border.all(),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      array[i].toString(),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                          ],
-                        );
-                      },
-                    ),
-                  ],
-                ),
+    return Scaffold(
+      appBar: const MyAppBar(
+        text1: 'Bubble ',
+        text2: 'Sort',
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _ArrayGrid(),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Align(
+                    child: _Message(),
+                  ),
+                ],
               ),
-              const SizedBox(
-                height: 16,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            ElevatedButton(
+              onPressed: getBloc<SortingBloc>(context).startBubbleSort,
+              child: const Text(
+                'Sort',
               ),
-              ElevatedButton(
-                onPressed: getBloc<SortingBloc>(context).startBubbleSort,
-                child: const Text(
-                  'start',
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class _ArrayGrid extends StatelessWidget {
+  const _ArrayGrid();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SortingBloc, SortingState>(
+      builder: (BuildContext context, state) {
+        final array = state.store.sortedArray;
+
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+          ),
+          itemCount: array.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Container(
+              height: 40,
+              decoration: BoxDecoration(
+                color: index == state.store.scannedIndex1
+                    ? AppColors.blue
+                    : index == state.store.scannedIndex2
+                        ? AppColors.yellow
+                        : AppColors.transparent,
+                border: Border.all(),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(
+                child: Text(
+                  array[index].toString(),
+                  style: const TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+class _Message extends StatelessWidget {
+  const _Message();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SortingBloc, SortingState>(
+      builder: (BuildContext context, state) {
+        return switch (state) {
+          ScannedIndex(:final store) => Text(
+              '''Scanning index ${store.scannedIndex1} and ${store.scannedIndex2}.''',
+            ),
+          SwappedIndex(:final store) => Text(
+              '''Swapping index ${store.scannedIndex1} and ${store.scannedIndex2}.''',
+            ),
+          NoNeedOfSwap() => const Text('No Need of swap'),
+          _ => state.store.isArraySorted
+              ? const Text('Sorting Completed')
+              : const SizedBox(),
+        };
+      },
     );
   }
 }

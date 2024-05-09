@@ -68,6 +68,8 @@ class SortingBloc extends BaseBloc<SortingEvent, SortingState> {
     final lengthOfArray = array.length;
 
     for (int i = 0; i < lengthOfArray - 1; i++) {
+      bool isSwap = false;
+
       for (int j = 0; j < lengthOfArray - i - 1; j++) {
         emit(
           SortingState.scannedIndex(
@@ -77,22 +79,55 @@ class SortingBloc extends BaseBloc<SortingEvent, SortingState> {
             ),
           ),
         );
+        await _addDelay();
+
         if (array[j] > array[j + 1]) {
           final temp = array[j];
           array[j] = array[j + 1];
           array[j + 1] = temp;
-        }
-        emit(
-          SortingState.swappedIndex(
-            store: state.store.copyWith(
-              sortedArray: List<int>.from(
-                array,
+
+          isSwap = true;
+
+          emit(
+            SortingState.swappedIndex(
+              store: state.store.copyWith(
+                sortedArray: List<int>.from(
+                  array,
+                ),
+                scannedIndex1: state.store.scannedIndex2,
+                scannedIndex2: state.store.scannedIndex1,
               ),
             ),
-          ),
-        );
-        await Future.delayed(const Duration(seconds: 1));
+          );
+        } else {
+          emit(
+            SortingState.noNeedOfSwap(store: state.store),
+          );
+        }
+
+        await _addDelay();
+      }
+
+      if(!isSwap){
+        break;
       }
     }
+    _sortingCompleted(emit);
+  }
+
+  Future<void> _addDelay() async {
+    await Future.delayed(Duration(seconds: state.store.delayInSeconds));
+  }
+
+  void _sortingCompleted(Emitter<SortingState> emit) {
+    emit(
+      SortingState.sortingCompleted(
+        store: state.store.copyWith(
+          isArraySorted: true,
+          scannedIndex1: null,
+          scannedIndex2: null,
+        ),
+      ),
+    );
   }
 }

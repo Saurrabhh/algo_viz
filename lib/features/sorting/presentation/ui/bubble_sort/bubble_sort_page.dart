@@ -1,5 +1,5 @@
 import 'package:algo_viz/constants/string_constants/string_constants.dart';
-import 'package:algo_viz/core/designs/color/app_colors.dart';
+import 'package:algo_viz/core/designs/designs.dart';
 import 'package:algo_viz/di/injection.dart';
 import 'package:algo_viz/features/sorting/presentation/blocs/sorting_bloc.dart';
 import 'package:algo_viz/utils/bloc_utils/bloc_utils.dart';
@@ -19,7 +19,7 @@ class BubbleSortPage extends StatelessWidget {
       create: (_) => getIt<SortingBloc>()
         ..started(
           args: {
-            StringConstants.intArray: [5, 4, 3, 2, 1],
+            StringConstants.intArray: [1,2,3,4,5,],
           },
         ),
       child: const _BubbleSortForm(),

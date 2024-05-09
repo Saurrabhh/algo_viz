@@ -14,33 +14,16 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: RichText(
-          text: const TextSpan(
-            style: TextStyle(color: AppColors.black, fontSize: 20),
-            children: [
-              TextSpan(
-                text: 'Algo',
-                style: TextStyle(color: AppColors.black),
-              ),
-              TextSpan(
-                text: 'Viz',
-                style: TextStyle(color: AppColors.blue),
-              ),
-            ],
-          ),
-        ),
+    return const Scaffold(
+      appBar: MyAppBar(
+        text1: 'Algo',
+        text2: 'Viz',
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(8),
           child: Column(
             children: [
-              SizedBox(
-                height: 20,
-              ),
               _AlgorithmSection(
                 title: 'Searching Algorithms',
                 viewAllRouteId: RouteId.searching,

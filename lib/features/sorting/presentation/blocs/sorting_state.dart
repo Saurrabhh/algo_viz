@@ -16,6 +16,14 @@ sealed class SortingState extends BaseState with _$SortingState {
     required SortingStateStore store,
   }) = SwappedIndex;
 
+  const factory SortingState.noNeedOfSwap({
+    required SortingStateStore store,
+  }) = NoNeedOfSwap;
+
+  const factory SortingState.sortingCompleted({
+    required SortingStateStore store,
+  }) = SortingCompleted;
+
   const factory SortingState.changeLoaderState({
     required SortingStateStore store,
   }) = ChangeLoaderState;
@@ -50,6 +58,8 @@ class SortingStateStore with _$SortingStateStore {
   const factory SortingStateStore({
     int? scannedIndex1,
     int? scannedIndex2,
+    @Default(1) int delayInSeconds,
+    @Default(false) bool isArraySorted,
     @Default([]) List<int> array,
     @Default([]) List<int> sortedArray,
     @Default(false) bool loading,
