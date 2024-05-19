@@ -20,47 +20,47 @@ final class AlgorithmCardConfigs {
 
   static const sortingAlgorithmsList = <AlgorithmCardConfig>[
     (
+      algorithmName: 'Bubble Sort',
+      routeId: RouteId.bubbleSort,
+      imagePath: ImageAssets.bubble,
+    ),
+    (
       algorithmName: 'Selection Sort',
       routeId: RouteId.selectionSort,
       imagePath: ImageAssets.selection,
     ),
-    (
-      algorithmName: 'Insertion Sort',
-      routeId: RouteId.insertionSort,
-      imagePath: ImageAssets.insertion,
-    ),
-    (
-      algorithmName: 'Quick Sort',
-      routeId: RouteId.quickSort,
-      imagePath: ImageAssets.quick,
-    ),
-    (
-      algorithmName: 'Merge Sort',
-      routeId: RouteId.mergeSort,
-      imagePath: ImageAssets.merge,
-    ),
-    (
-      algorithmName: 'Bubble Sort',
-      routeId: RouteId.bubbleSort,
-      imagePath: ImageAssets.arrowDownRight,
-    ),
+    // (
+    //   algorithmName: 'Insertion Sort',
+    //   routeId: RouteId.insertionSort,
+    //   imagePath: ImageAssets.insertion,
+    // ),
+    // (
+    //   algorithmName: 'Quick Sort',
+    //   routeId: RouteId.quickSort,
+    //   imagePath: ImageAssets.quick,
+    // ),
+    // (
+    //   algorithmName: 'Merge Sort',
+    //   routeId: RouteId.mergeSort,
+    //   imagePath: ImageAssets.merge,
+    // ),
   ];
 
   static const pathFindingAlgorithmsList = <AlgorithmCardConfig>[
-    (
-      algorithmName: 'BFS',
-      routeId: RouteId.bfs,
-      imagePath: ImageAssets.bfs,
-    ),
-    (
-      algorithmName: 'DFS',
-      routeId: RouteId.dfs,
-      imagePath: ImageAssets.dfs,
-    ),
-    (
-      algorithmName: 'Dijkstra',
-      routeId: RouteId.dijkstra,
-      imagePath: ImageAssets.dijkstra,
-    ),
+    // (
+    //   algorithmName: 'BFS',
+    //   routeId: RouteId.bfs,
+    //   imagePath: ImageAssets.bfs,
+    // ),
+    // (
+    //   algorithmName: 'DFS',
+    //   routeId: RouteId.dfs,
+    //   imagePath: ImageAssets.dfs,
+    // ),
+    // (
+    //   algorithmName: 'Dijkstra',
+    //   routeId: RouteId.dijkstra,
+    //   imagePath: ImageAssets.dijkstra,
+    // ),
   ];
 }

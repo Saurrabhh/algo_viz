@@ -1,13 +1,13 @@
-part of 'bubble_sort_page.dart';
+part of 'selection_sort_page.dart';
 
-class _BubbleSortForm extends StatelessWidget {
-  const _BubbleSortForm();
+class _SelectionSortForm extends StatelessWidget {
+  const _SelectionSortForm();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MyAppBar(
-        text1: 'Bubble ',
+        text1: 'Selection ',
         text2: 'Sort',
       ),
       body: Padding(
@@ -119,7 +119,7 @@ class _StartButton extends StatelessWidget {
       builder: (BuildContext context, state) {
         return ElevatedButton(
           onPressed: !state.store.isSorting
-              ? getBloc<SortingBloc>(context).startBubbleSort
+              ? getBloc<SortingBloc>(context).startSelectionSort
               : null,
           child: const Text(
             'Sort',

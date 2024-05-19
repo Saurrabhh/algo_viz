@@ -1,20 +1,21 @@
-part of 'bubble_sort_page.dart';
+part of 'binary_search_page.dart';
 
-class _BubbleSortForm extends StatelessWidget {
-  const _BubbleSortForm();
+class _BinarySearchForm extends StatelessWidget {
+  const _BinarySearchForm();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MyAppBar(
-        text1: 'Bubble ',
-        text2: 'Sort',
+        text1: 'Binary ',
+        text2: 'Search',
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const _NumberTextField(),
             const Align(
               child: _Message(),
             ),
@@ -39,7 +40,8 @@ class _BubbleSortForm extends StatelessWidget {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: getBloc<SortingBloc>(context).speedButtonClicked,
+                    onPressed:
+                        getBloc<SearchingBloc>(context).speedButtonClicked,
                     child: const Text(
                       'Speed',
                     ),
@@ -51,10 +53,6 @@ class _BubbleSortForm extends StatelessWidget {
                 const Expanded(
                   child: _LengthButton(),
                 ),
-                const SizedBox(
-                  width: 8,
-                ),
-                const _ShuffleButton(),
               ],
             ),
             const SizedBox(
@@ -68,38 +66,16 @@ class _BubbleSortForm extends StatelessWidget {
   }
 }
 
-class _ShuffleButton extends StatelessWidget {
-  const _ShuffleButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SortingBloc, SortingState>(
-      builder: (BuildContext context, state) {
-        return ElevatedButton(
-          onPressed: !state.store.isSorting
-              ? getBloc<SortingBloc>(context).randomizeButtonClicked
-              : null,
-          style: ElevatedButton.styleFrom(shape: const CircleBorder()),
-          child: const Icon(
-            Icons.shuffle_outlined,
-            color: AppColors.blue,
-          ),
-        );
-      },
-    );
-  }
-}
-
 class _LengthButton extends StatelessWidget {
   const _LengthButton();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SortingBloc, SortingState>(
+    return BlocBuilder<SearchingBloc, SearchingState>(
       builder: (BuildContext context, state) {
         return ElevatedButton(
-          onPressed: !state.store.isSorting
-              ? getBloc<SortingBloc>(context).lengthButtonClicked
+          onPressed: !state.store.isSearching
+              ? getBloc<SearchingBloc>(context).lengthButtonClicked
               : null,
           child: const Text(
             'Length',
@@ -115,14 +91,14 @@ class _StartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SortingBloc, SortingState>(
+    return BlocBuilder<SearchingBloc, SearchingState>(
       builder: (BuildContext context, state) {
         return ElevatedButton(
-          onPressed: !state.store.isSorting
-              ? getBloc<SortingBloc>(context).startBubbleSort
+          onPressed: !state.store.isSearching
+              ? getBloc<SearchingBloc>(context).startBinarySearch
               : null,
           child: const Text(
-            'Sort',
+            'Search',
           ),
         );
       },
@@ -135,9 +111,9 @@ class _ArrayGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SortingBloc, SortingState>(
+    return BlocBuilder<SearchingBloc, SearchingState>(
       builder: (BuildContext context, state) {
-        final array = state.store.sortedArray;
+        final array = state.store.array;
 
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -150,14 +126,25 @@ class _ArrayGrid extends StatelessWidget {
             return Container(
               height: 40,
               decoration: BoxDecoration(
-                color: state.store.sortedIndexes.contains(index) ||
-                        state.store.isArraySorted
-                    ? AppColors.green
-                    : index == state.store.scannedIndex1
-                        ? AppColors.blue
-                        : index == state.store.scannedIndex2
-                            ? AppColors.yellow
-                            : AppColors.transparent,
+                color: state.store.searchingCompleted
+                    ? state.store.array[state.store.searchedIndex] ==
+                                state.store.numberToSearch &&
+                            index == state.store.searchedIndex
+                        ? AppColors.green
+                        : AppColors.transparent
+                    : state.store.isSearching
+                        ? index == state.store.searchedIndex
+                            ? AppColors.blue
+                            : index == state.store.left ||
+                                    index == state.store.right
+                                ? AppColors.yellow
+                                : state.store.right != null &&
+                                        state.store.left != null &&
+                                        index < state.store.right! &&
+                                        index > state.store.left!
+                                    ? AppColors.transparent
+                                    : AppColors.red
+                        : AppColors.transparent,
                 border: Border.all(),
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -179,23 +166,65 @@ class _ArrayGrid extends StatelessWidget {
   }
 }
 
+class _NumberTextField extends StatelessWidget {
+  const _NumberTextField();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SearchingBloc, SearchingState>(
+      builder: (BuildContext context, state) {
+        if (state.store.isSearching) {
+          return const SizedBox();
+        }
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Expanded(
+              flex: 8,
+              child: Text(
+                'Enter number to search: ',
+              ),
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            Expanded(
+              flex: 2,
+              child: TextField(
+                // controller: controller,
+                onChanged: (numberToSearch) =>
+                    getBloc<SearchingBloc>(context).changeNumberToSearch(
+                  int.tryParse(numberToSearch),
+                ),
+                keyboardType: TextInputType.number,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
 class _Message extends StatelessWidget {
   const _Message();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SortingBloc, SortingState>(
+    return BlocBuilder<SearchingBloc, SearchingState>(
       builder: (BuildContext context, state) {
         return switch (state) {
-          ScannedIndex(:final store) => Text(
-              '''Scanning index ${store.scannedIndex1} and ${store.scannedIndex2}.''',
+          SearchedIndex(:final store) => Text(
+              '''Searched Number ${store.array[store.searchedIndex]}.''',
             ),
-          SwappedIndex(:final store) => Text(
-              '''Swapping index ${store.scannedIndex1} and ${store.scannedIndex2}.''',
-            ),
-          NoNeedOfSwap() => const Text('No Need of swap'),
-          _ => state.store.isArraySorted
-              ? const Text('Sorting Completed')
+          _ => state.store.searchingCompleted
+              ? state.store.array[state.store.searchedIndex] ==
+                      state.store.numberToSearch
+                  ? Text('Number found at index ${state.store.searchedIndex}')
+                  : const Text('Number not found')
               : const Text(''),
         };
       },
@@ -208,7 +237,7 @@ class _SpeedSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SortingBloc, SortingState>(
+    return BlocBuilder<SearchingBloc, SearchingState>(
       builder: (BuildContext context, state) {
         if (state.store.showSpeedSlider) {
           return Column(
@@ -229,13 +258,14 @@ class _SpeedSlider extends StatelessWidget {
                   Expanded(
                     flex: 8,
                     child: Slider(
-                      label: state.store.sortingSpeed.toString(),
-                      divisions: state.store.maxSortingSpeed,
-                      value: state.store.sortingSpeed.toDouble(),
-                      min: state.store.minSortingSpeed.toDouble(),
-                      max: state.store.maxSortingSpeed.toDouble(),
-                      onChanged: (sortingSpeed) => getBloc<SortingBloc>(context)
-                          .changeSortingSpeed(sortingSpeed.toInt()),
+                      label: state.store.searchingSpeed.toString(),
+                      divisions: state.store.maxSearchingSpeed,
+                      value: state.store.searchingSpeed.toDouble(),
+                      min: state.store.minSearchingSpeed.toDouble(),
+                      max: state.store.maxSearchingSpeed.toDouble(),
+                      onChanged: (searchingSpeed) =>
+                          getBloc<SearchingBloc>(context)
+                              .changeSearchingSpeed(searchingSpeed.toInt()),
                     ),
                   ),
                   const SizedBox(
@@ -244,10 +274,11 @@ class _SpeedSlider extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: _SliderTextField(
-                      value: state.store.sortingSpeed.toString(),
-                      onChanged: (sortingSpeed) =>
-                          getBloc<SortingBloc>(context).changeSortingSpeed(
-                        int.tryParse(sortingSpeed) ?? state.store.sortingSpeed,
+                      value: state.store.searchingSpeed.toString(),
+                      onChanged: (searchingSpeed) =>
+                          getBloc<SearchingBloc>(context).changeSearchingSpeed(
+                        int.tryParse(searchingSpeed) ??
+                            state.store.searchingSpeed,
                       ),
                     ),
                   ),
@@ -268,9 +299,9 @@ class _LengthSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SortingBloc, SortingState>(
+    return BlocBuilder<SearchingBloc, SearchingState>(
       builder: (BuildContext context, state) {
-        if (state.store.showLengthSlider && !state.store.isSorting) {
+        if (state.store.showLengthSlider && !state.store.isSearching) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -294,8 +325,9 @@ class _LengthSlider extends StatelessWidget {
                       value: state.store.arrayLength.toDouble(),
                       min: state.store.minArrayLength.toDouble(),
                       max: state.store.maxArrayLength.toDouble(),
-                      onChanged: (arrayLength) => getBloc<SortingBloc>(context)
-                          .changeArrayLength(arrayLength.toInt()),
+                      onChanged: (arrayLength) =>
+                          getBloc<SearchingBloc>(context)
+                              .changeArrayLength(arrayLength.toInt()),
                     ),
                   ),
                   const SizedBox(
@@ -306,7 +338,7 @@ class _LengthSlider extends StatelessWidget {
                     child: _SliderTextField(
                       value: state.store.arrayLength.toString(),
                       onChanged: (val) =>
-                          getBloc<SortingBloc>(context).changeArrayLength(
+                          getBloc<SearchingBloc>(context).changeArrayLength(
                         int.tryParse(val) ?? state.store.arrayLength,
                       ),
                     ),

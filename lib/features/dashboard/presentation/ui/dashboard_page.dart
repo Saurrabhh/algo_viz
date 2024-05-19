@@ -42,12 +42,12 @@ class DashboardPage extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              _AlgorithmSection(
-                title: 'Path Finding Algorithms',
-                viewAllRouteId: RouteId.pathfinding,
-                algorithmCardConfigs:
-                    AlgorithmCardConfigs.pathFindingAlgorithmsList,
-              ),
+              // _AlgorithmSection(
+              //   title: 'Path Finding Algorithms',
+              //   viewAllRouteId: RouteId.pathfinding,
+              //   algorithmCardConfigs:
+              //       AlgorithmCardConfigs.pathFindingAlgorithmsList,
+              // ),
             ],
           ),
         ),
