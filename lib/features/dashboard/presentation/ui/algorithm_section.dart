@@ -14,6 +14,7 @@ class _AlgorithmSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ListTile(
           leading: Text(
@@ -25,7 +26,7 @@ class _AlgorithmSection extends StatelessWidget {
             child: Text(
               'View All',
               style: TextStyle(
-                color: AppColors.blueColor.withOpacity(0.9),
+                color: AppColors.blue.withOpacity(0.9),
                 fontSize: 16,
               ),
             ),

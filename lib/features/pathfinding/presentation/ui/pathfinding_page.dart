@@ -9,23 +9,9 @@ class PathfindingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: RichText(
-          text: const TextSpan(
-            style: TextStyle(color: AppColors.blackColor, fontSize: 20),
-            children: [
-              TextSpan(
-                text: 'Pathfinding ',
-                style: TextStyle(color: AppColors.blackColor),
-              ),
-              TextSpan(
-                text: 'Algorithms',
-                style: TextStyle(color: AppColors.blueColor),
-              ),
-            ],
-          ),
-        ),
+      appBar: const MyAppBar(
+        text1: 'Pathfinding ',
+        text2: 'Algorithms',
       ),
       body: Column(
         children: [

@@ -14,33 +14,16 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: RichText(
-          text: const TextSpan(
-            style: TextStyle(color: AppColors.blackColor, fontSize: 20),
-            children: [
-              TextSpan(
-                text: 'Algo',
-                style: TextStyle(color: AppColors.blackColor),
-              ),
-              TextSpan(
-                text: 'Viz',
-                style: TextStyle(color: AppColors.blueColor),
-              ),
-            ],
-          ),
-        ),
+    return const Scaffold(
+      appBar: MyAppBar(
+        text1: 'Algo',
+        text2: 'Viz',
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(8),
           child: Column(
             children: [
-              SizedBox(
-                height: 20,
-              ),
               _AlgorithmSection(
                 title: 'Searching Algorithms',
                 viewAllRouteId: RouteId.searching,
@@ -59,12 +42,12 @@ class DashboardPage extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              _AlgorithmSection(
-                title: 'Path Finding Algorithms',
-                viewAllRouteId: RouteId.pathfinding,
-                algorithmCardConfigs:
-                    AlgorithmCardConfigs.pathFindingAlgorithmsList,
-              ),
+              // _AlgorithmSection(
+              //   title: 'Path Finding Algorithms',
+              //   viewAllRouteId: RouteId.pathfinding,
+              //   algorithmCardConfigs:
+              //       AlgorithmCardConfigs.pathFindingAlgorithmsList,
+              // ),
             ],
           ),
         ),

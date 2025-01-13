@@ -12,4 +12,5 @@ final class ImageAssets {
   static const merge = 'assets/images/merge.png';
   static const linear = 'assets/images/linear.png';
   static const binary = 'assets/images/binary.png';
+  static const bubble = 'assets/images/bubble_sort.png';
 }

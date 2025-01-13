@@ -14,7 +14,7 @@ class SplashPage extends StatelessWidget {
       useImmersiveMode: true,
       duration: const Duration(milliseconds: 5000),
       nextScreen: const DashboardPage(),
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.white,
       splashScreenBody: Center(
         child: Column(
           children: [
@@ -30,15 +30,15 @@ class SplashPage extends StatelessWidget {
             ),
             RichText(
               text: const TextSpan(
-                style: TextStyle(color: AppColors.blackColor, fontSize: 20),
+                style: TextStyle(color: AppColors.black, fontSize: 20),
                 children: [
                   TextSpan(
                     text: 'Algo ',
-                    style: TextStyle(color: AppColors.blackColor),
+                    style: TextStyle(color: AppColors.black),
                   ),
                   TextSpan(
                     text: 'Viz',
-                    style: TextStyle(color: AppColors.blueColor),
+                    style: TextStyle(color: AppColors.blue),
                   ),
                 ],
               ),

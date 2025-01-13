@@ -11,23 +11,9 @@ class SearchingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: RichText(
-          text: const TextSpan(
-            style: TextStyle(color: AppColors.blackColor, fontSize: 20),
-            children: [
-              TextSpan(
-                text: 'Searching ',
-                style: TextStyle(color: AppColors.blackColor),
-              ),
-              TextSpan(
-                text: 'Algorithms',
-                style: TextStyle(color: AppColors.blueColor),
-              ),
-            ],
-          ),
-        ),
+      appBar: const MyAppBar(
+        text1: 'Searching ',
+        text2: 'Algorithms',
       ),
       body: Column(
         children: [
