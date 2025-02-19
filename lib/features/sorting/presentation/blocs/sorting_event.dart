@@ -10,6 +10,8 @@ class SortingEvent extends BaseEvent with _$SortingEvent {
 
   const factory SortingEvent.startSelectionSort() = _StartSelectionSort;
 
+  const factory SortingEvent.startInsertionSort() = _StartInsertionSort;
+
   const factory SortingEvent.speedButtonClicked() = _SpeedButtonClicked;
 
   const factory SortingEvent.changeSortingSpeed({

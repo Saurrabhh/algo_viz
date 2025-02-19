@@ -61,6 +61,10 @@ class _SelectionSortForm extends StatelessWidget {
               height: 8,
             ),
             const _StartButton(),
+            const SizedBox(
+              height: 4,
+            ),
+            const _SelectionSortTheory(),
           ],
         ),
       ),
@@ -360,5 +364,71 @@ class _SliderTextFieldState extends State<_SliderTextField> {
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+}
+
+class _SelectionSortTheory extends StatefulWidget {
+  const _SelectionSortTheory();
+
+  @override
+  State<_SelectionSortTheory> createState() => _SelectionSortTheoryState();
+}
+
+class _SelectionSortTheoryState extends State<_SelectionSortTheory> {
+  bool _isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        ElevatedButton.icon(
+          onPressed: () {
+            setState(() {
+              _isExpanded = !_isExpanded;
+            });
+          },
+          icon:
+              Icon(_isExpanded ? Icons.keyboard_arrow_up : Icons.info_outline),
+          label: const Text('Info'),
+        ),
+        if (_isExpanded)
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Selection Sort Algorithm',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  '1. Find the smallest element in the array.\n'
+                  '2. Swap it with the first element.\n'
+                  '3. Find the next smallest element in the remaining array.\n'
+                  '4. Swap it with the next position.\n'
+                  '5. Repeat until the entire array is sorted.',
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'Complexity Analysis:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'Best Case: O(n²)\n'
+                  'Worst Case: O(n²)\n'
+                  'Average Case: O(n²)\n'
+                  'Space Complexity: O(1) (In-place Sorting)',
+                ),
+              ],
+            ),
+          ),
+      ],
+    );
   }
 }

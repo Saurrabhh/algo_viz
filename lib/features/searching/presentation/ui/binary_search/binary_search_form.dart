@@ -59,6 +59,10 @@ class _BinarySearchForm extends StatelessWidget {
               height: 8,
             ),
             const _StartButton(),
+            const SizedBox(
+              height: 4,
+            ),
+            const _BinarySearchTheory(),
           ],
         ),
       ),
@@ -392,5 +396,71 @@ class _SliderTextFieldState extends State<_SliderTextField> {
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+}
+
+class _BinarySearchTheory extends StatefulWidget {
+  const _BinarySearchTheory();
+
+  @override
+  State<_BinarySearchTheory> createState() => _BinarySearchTheoryState();
+}
+
+class _BinarySearchTheoryState extends State<_BinarySearchTheory> {
+  bool _isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        ElevatedButton.icon(
+          onPressed: () {
+            setState(() {
+              _isExpanded = !_isExpanded;
+            });
+          },
+          icon: Icon(_isExpanded ? Icons.keyboard_arrow_up : Icons.search),
+          label: const Text('Info'),
+        ),
+        if (_isExpanded)
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Binary Search Algorithm',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  '1. Ensure the array is sorted.\n'
+                  '2. Find the middle element.\n'
+                  '3. If the middle element matches the target, return its index.\n'
+                  '4. If the target is smaller, search in the left half.\n'
+                  '5. If the target is larger, search in the right half.\n'
+                  '6. Repeat until the element is found or the sub-array is empty.',
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'Complexity Analysis:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'Best Case: O(1) (Element found at the middle)\n'
+                  'Worst Case: O(log n)\n'
+                  'Average Case: O(log n)\n'
+                  'Space Complexity: O(1) (In-place Search)',
+                ),
+              ],
+            ),
+          ),
+      ],
+    );
   }
 }
