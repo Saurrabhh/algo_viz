@@ -26,7 +26,7 @@ class _AlgorithmSection extends StatelessWidget {
             child: Text(
               'View All',
               style: TextStyle(
-                color: AppColors.blue.withOpacity(0.9),
+                color: AppColors.blue.withValues(alpha: 0.9),
                 fontSize: 16,
               ),
             ),

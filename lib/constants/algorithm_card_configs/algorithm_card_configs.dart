@@ -29,11 +29,11 @@ final class AlgorithmCardConfigs {
       routeId: RouteId.selectionSort,
       imagePath: ImageAssets.selection,
     ),
-    // (
-    //   algorithmName: 'Insertion Sort',
-    //   routeId: RouteId.insertionSort,
-    //   imagePath: ImageAssets.insertion,
-    // ),
+    (
+      algorithmName: 'Insertion Sort',
+      routeId: RouteId.insertionSort,
+      imagePath: ImageAssets.insertion,
+    ),
     // (
     //   algorithmName: 'Quick Sort',
     //   routeId: RouteId.quickSort,

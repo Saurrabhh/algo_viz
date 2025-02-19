@@ -6,9 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 part 'searching_bloc.freezed.dart';
-
 part 'searching_event.dart';
-
 part 'searching_state.dart';
 
 @injectable

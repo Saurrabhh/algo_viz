@@ -1,21 +1,20 @@
-part of 'linear_search_page.dart';
+part of 'insertion_sort_page.dart';
 
-class _LinearSearchForm extends StatelessWidget {
-  const _LinearSearchForm();
+class _InsertionSortForm extends StatelessWidget {
+  const _InsertionSortForm();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MyAppBar(
-        text1: 'Linear ',
-        text2: 'Search',
+        text1: 'Insertion ',
+        text2: 'Sort',
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const _NumberTextField(),
             const Align(
               child: _Message(),
             ),
@@ -40,8 +39,7 @@ class _LinearSearchForm extends StatelessWidget {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed:
-                        getBloc<SearchingBloc>(context).speedButtonClicked,
+                    onPressed: getBloc<SortingBloc>(context).speedButtonClicked,
                     child: const Text(
                       'Speed',
                     ),
@@ -59,14 +57,9 @@ class _LinearSearchForm extends StatelessWidget {
                 const _ShuffleButton(),
               ],
             ),
-            const SizedBox(
-              height: 8,
-            ),
             const _StartButton(),
-            const SizedBox(
-              height: 4,
-            ),
-            const _LinearSearchTheory(),
+            const SizedBox(height: 4),
+            const _InsertionSortTheory(),
           ],
         ),
       ),
@@ -79,11 +72,11 @@ class _ShuffleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchingBloc, SearchingState>(
+    return BlocBuilder<SortingBloc, SortingState>(
       builder: (BuildContext context, state) {
         return ElevatedButton(
-          onPressed: !state.store.isSearching
-              ? getBloc<SearchingBloc>(context).randomizeButtonClicked
+          onPressed: !state.store.isSorting
+              ? getBloc<SortingBloc>(context).randomizeButtonClicked
               : null,
           style: ElevatedButton.styleFrom(shape: const CircleBorder()),
           child: const Icon(
@@ -101,11 +94,11 @@ class _LengthButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchingBloc, SearchingState>(
+    return BlocBuilder<SortingBloc, SortingState>(
       builder: (BuildContext context, state) {
         return ElevatedButton(
-          onPressed: !state.store.isSearching
-              ? getBloc<SearchingBloc>(context).lengthButtonClicked
+          onPressed: !state.store.isSorting
+              ? getBloc<SortingBloc>(context).lengthButtonClicked
               : null,
           child: const Text(
             'Length',
@@ -121,14 +114,14 @@ class _StartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchingBloc, SearchingState>(
+    return BlocBuilder<SortingBloc, SortingState>(
       builder: (BuildContext context, state) {
         return ElevatedButton(
-          onPressed: !state.store.isSearching
-              ? getBloc<SearchingBloc>(context).startLinearSearch
+          onPressed: !state.store.isSorting
+              ? getBloc<SortingBloc>(context).startInsertionSort
               : null,
           child: const Text(
-            'Search',
+            'Sort',
           ),
         );
       },
@@ -141,9 +134,9 @@ class _ArrayGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchingBloc, SearchingState>(
+    return BlocBuilder<SortingBloc, SortingState>(
       builder: (BuildContext context, state) {
-        final array = state.store.array;
+        final array = state.store.sortedArray;
 
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -156,19 +149,14 @@ class _ArrayGrid extends StatelessWidget {
             return Container(
               height: 40,
               decoration: BoxDecoration(
-                color: state.store.searchingCompleted
-                    ? state.store.array[state.store.searchedIndex] ==
-                                state.store.numberToSearch &&
-                            index == state.store.searchedIndex
-                        ? AppColors.green
-                        : AppColors.transparent
-                    : state.store.isSearching
-                        ? index < state.store.searchedIndex
-                            ? AppColors.red
-                            : index == state.store.searchedIndex
-                                ? AppColors.blue
-                                : AppColors.transparent
-                        : AppColors.transparent,
+                color: state.store.sortedIndexes.contains(index) ||
+                        state.store.isArraySorted
+                    ? AppColors.green
+                    : index == state.store.scannedIndex1
+                        ? AppColors.blue
+                        : index == state.store.scannedIndex2
+                            ? AppColors.yellow
+                            : AppColors.transparent,
                 border: Border.all(),
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -190,65 +178,23 @@ class _ArrayGrid extends StatelessWidget {
   }
 }
 
-class _NumberTextField extends StatelessWidget {
-  const _NumberTextField();
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SearchingBloc, SearchingState>(
-      builder: (BuildContext context, state) {
-        if (state.store.isSearching) {
-          return const SizedBox();
-        }
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Expanded(
-              flex: 8,
-              child: Text(
-                'Enter number to search: ',
-              ),
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            Expanded(
-              flex: 2,
-              child: TextField(
-                // controller: controller,
-                onChanged: (numberToSearch) =>
-                    getBloc<SearchingBloc>(context).changeNumberToSearch(
-                  int.tryParse(numberToSearch),
-                ),
-                keyboardType: TextInputType.number,
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
 class _Message extends StatelessWidget {
   const _Message();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchingBloc, SearchingState>(
+    return BlocBuilder<SortingBloc, SortingState>(
       builder: (BuildContext context, state) {
         return switch (state) {
-          SearchedIndex(:final store) => Text(
-              '''Searched Number ${store.array[store.searchedIndex]}.''',
+          ScannedIndex(:final store) => Text(
+              '''Scanning index ${store.scannedIndex1} and ${store.scannedIndex2}.''',
             ),
-          _ => state.store.searchingCompleted
-              ? state.store.array[state.store.searchedIndex] ==
-                      state.store.numberToSearch
-                  ? Text('Number found at index ${state.store.searchedIndex}')
-                  : const Text('Number not found')
+          SwappedIndex(:final store) => Text(
+              '''Swapping index ${store.scannedIndex1} and ${store.scannedIndex2}.''',
+            ),
+          NoNeedOfSwap() => const Text('No Need of swap'),
+          _ => state.store.isArraySorted
+              ? const Text('Sorting Completed')
               : const Text(''),
         };
       },
@@ -261,7 +207,7 @@ class _SpeedSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchingBloc, SearchingState>(
+    return BlocBuilder<SortingBloc, SortingState>(
       builder: (BuildContext context, state) {
         if (state.store.showSpeedSlider) {
           return Column(
@@ -282,14 +228,13 @@ class _SpeedSlider extends StatelessWidget {
                   Expanded(
                     flex: 8,
                     child: Slider(
-                      label: state.store.searchingSpeed.toString(),
-                      divisions: state.store.maxSearchingSpeed,
-                      value: state.store.searchingSpeed.toDouble(),
-                      min: state.store.minSearchingSpeed.toDouble(),
-                      max: state.store.maxSearchingSpeed.toDouble(),
-                      onChanged: (searchingSpeed) =>
-                          getBloc<SearchingBloc>(context)
-                              .changeSearchingSpeed(searchingSpeed.toInt()),
+                      label: state.store.sortingSpeed.toString(),
+                      divisions: state.store.maxSortingSpeed,
+                      value: state.store.sortingSpeed.toDouble(),
+                      min: state.store.minSortingSpeed.toDouble(),
+                      max: state.store.maxSortingSpeed.toDouble(),
+                      onChanged: (sortingSpeed) => getBloc<SortingBloc>(context)
+                          .changeSortingSpeed(sortingSpeed.toInt()),
                     ),
                   ),
                   const SizedBox(
@@ -298,11 +243,10 @@ class _SpeedSlider extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: _SliderTextField(
-                      value: state.store.searchingSpeed.toString(),
-                      onChanged: (searchingSpeed) =>
-                          getBloc<SearchingBloc>(context).changeSearchingSpeed(
-                        int.tryParse(searchingSpeed) ??
-                            state.store.searchingSpeed,
+                      value: state.store.sortingSpeed.toString(),
+                      onChanged: (sortingSpeed) =>
+                          getBloc<SortingBloc>(context).changeSortingSpeed(
+                        int.tryParse(sortingSpeed) ?? state.store.sortingSpeed,
                       ),
                     ),
                   ),
@@ -323,9 +267,9 @@ class _LengthSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchingBloc, SearchingState>(
+    return BlocBuilder<SortingBloc, SortingState>(
       builder: (BuildContext context, state) {
-        if (state.store.showLengthSlider && !state.store.isSearching) {
+        if (state.store.showLengthSlider && !state.store.isSorting) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -349,9 +293,8 @@ class _LengthSlider extends StatelessWidget {
                       value: state.store.arrayLength.toDouble(),
                       min: state.store.minArrayLength.toDouble(),
                       max: state.store.maxArrayLength.toDouble(),
-                      onChanged: (arrayLength) =>
-                          getBloc<SearchingBloc>(context)
-                              .changeArrayLength(arrayLength.toInt()),
+                      onChanged: (arrayLength) => getBloc<SortingBloc>(context)
+                          .changeArrayLength(arrayLength.toInt()),
                     ),
                   ),
                   const SizedBox(
@@ -362,7 +305,7 @@ class _LengthSlider extends StatelessWidget {
                     child: _SliderTextField(
                       value: state.store.arrayLength.toString(),
                       onChanged: (val) =>
-                          getBloc<SearchingBloc>(context).changeArrayLength(
+                          getBloc<SortingBloc>(context).changeArrayLength(
                         int.tryParse(val) ?? state.store.arrayLength,
                       ),
                     ),
@@ -419,14 +362,14 @@ class _SliderTextFieldState extends State<_SliderTextField> {
   }
 }
 
-class _LinearSearchTheory extends StatefulWidget {
-  const _LinearSearchTheory();
+class _InsertionSortTheory extends StatefulWidget {
+  const _InsertionSortTheory();
 
   @override
-  State<_LinearSearchTheory> createState() => _LinearSearchTheoryState();
+  State<_InsertionSortTheory> createState() => _InsertionSortTheoryState();
 }
 
-class _LinearSearchTheoryState extends State<_LinearSearchTheory> {
+class _InsertionSortTheoryState extends State<_InsertionSortTheory> {
   bool _isExpanded = false;
 
   @override
@@ -440,7 +383,8 @@ class _LinearSearchTheoryState extends State<_LinearSearchTheory> {
               _isExpanded = !_isExpanded;
             });
           },
-          icon: Icon(_isExpanded ? Icons.keyboard_arrow_up : Icons.search),
+          icon:
+              Icon(_isExpanded ? Icons.keyboard_arrow_up : Icons.info_outline),
           label: const Text('Info'),
         ),
         if (_isExpanded)
@@ -454,15 +398,16 @@ class _LinearSearchTheoryState extends State<_LinearSearchTheory> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Linear Search Algorithm',
+                  'Insertion Sort Algorithm',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 SizedBox(height: 4),
                 Text(
-                  '1. Start from the first element of the array.\n'
-                  '2. Compare each element with the target value.\n'
-                  '3. If a match is found, return the index.\n'
-                  '4. If no match is found, return -1.',
+                  '1. Start from the second element (index 1).\n'
+                  '2. Compare it with the previous elements.\n'
+                  '3. Shift elements if they are greater than the key.\n'
+                  '4. Insert the key at its correct position.\n'
+                  '5. Repeat for all elements.',
                 ),
                 SizedBox(height: 8),
                 Text(
@@ -470,10 +415,10 @@ class _LinearSearchTheoryState extends State<_LinearSearchTheory> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'Best Case: O(1) (Element found at the start)\n'
-                  'Worst Case: O(n) (Element found at the end or not present)\n'
-                  'Average Case: O(n)\n'
-                  'Space Complexity: O(1) (In-place Search)',
+                  'Best Case (Sorted Input): O(n)\n'
+                  'Worst Case (Reverse Sorted): O(n²)\n'
+                  'Average Case: O(n²)\n'
+                  'Space Complexity: O(1) (In-place Sorting)',
                 ),
               ],
             ),

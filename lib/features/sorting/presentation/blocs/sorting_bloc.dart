@@ -6,9 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 part 'sorting_bloc.freezed.dart';
-
 part 'sorting_event.dart';
-
 part 'sorting_state.dart';
 
 @injectable
@@ -25,6 +23,7 @@ class SortingBloc extends BaseBloc<SortingEvent, SortingState> {
     on<_Started>(_onStarted);
     on<_StartBubbleSort>(_onStartBubbleSort);
     on<_StartSelectionSort>(_onStartSelectionSort);
+    on<_StartInsertionSort>(_onStartInsertionSort);
     on<_SpeedButtonClicked>(_onSpeedButtonClicked);
     on<_ChangeSortingSpeed>(_onChangeSortingSpeed);
     on<_LengthButtonClicked>(_onLengthButtonClicked);
@@ -52,6 +51,13 @@ class SortingBloc extends BaseBloc<SortingEvent, SortingState> {
     Emitter<SortingState> emit,
   ) async {
     await _bubbleSort(emit);
+  }
+
+  Future<void> _onStartInsertionSort(
+    _StartInsertionSort event,
+    Emitter<SortingState> emit,
+  ) async {
+    await _insertionSort(emit);
   }
 
   Future<void> _onStartSelectionSort(
@@ -171,6 +177,10 @@ class SortingBloc extends BaseBloc<SortingEvent, SortingState> {
     add(const SortingEvent.startBubbleSort());
   }
 
+  void startInsertionSort() {
+    add(const SortingEvent.startInsertionSort());
+  }
+
   void startSelectionSort() {
     add(const SortingEvent.startSelectionSort());
   }
@@ -274,6 +284,76 @@ class SortingBloc extends BaseBloc<SortingEvent, SortingState> {
     _sortingCompleted(emit);
   }
 
+  Future<void> _insertionSort(Emitter<SortingState> emit) async {
+    final array = List<int>.from(state.store.sortedArray);
+    final lengthOfArray = array.length;
+
+    emit(
+      SortingState.sortingStarted(
+        store: state.store.copyWith(
+          isSorting: true,
+        ),
+      ),
+    );
+
+    for (int i = 1; i < lengthOfArray; i++) {
+      final int key = array[i];
+      int j = i - 1;
+
+      emit(
+        SortingState.scannedIndex(
+          store: state.store.copyWith(
+            scannedIndex1: i,
+            scannedIndex2: j,
+          ),
+        ),
+      );
+      await _addDelay();
+
+      while (j >= 0 && array[j] > key) {
+        array[j + 1] = array[j];
+
+        emit(
+          SortingState.swappedIndex(
+            store: state.store.copyWith(
+              sortedArray: List<int>.from(array),
+              scannedIndex1: j,
+              scannedIndex2: j + 1,
+            ),
+          ),
+        );
+        await _addDelay();
+
+        j--;
+      }
+
+      array[j + 1] = key;
+
+      emit(
+        SortingState.swappedIndex(
+          store: state.store.copyWith(
+            sortedArray: List<int>.from(array),
+            scannedIndex1: j + 1,
+            scannedIndex2: i,
+          ),
+        ),
+      );
+      await _addDelay();
+
+      emit(
+        SortingState.addSortedIndex(
+          store: state.store.copyWith(
+            sortedIndexes: {
+              ...state.store.sortedIndexes,
+              i,
+            },
+          ),
+        ),
+      );
+    }
+    _sortingCompleted(emit);
+  }
+
   Future<void> _selectionSort(Emitter<SortingState> emit) async {
     final array = List<int>.from(state.store.sortedArray);
     final lengthOfArray = array.length;
@@ -333,7 +413,6 @@ class SortingBloc extends BaseBloc<SortingEvent, SortingState> {
           ),
         ),
       );
-
     }
 
     _sortingCompleted(emit);
